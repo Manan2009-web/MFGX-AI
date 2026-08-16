@@ -104,7 +104,7 @@ export default function DashboardView({ kpiData, isLoading, onRefresh }) {
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-bold tracking-wider text-[#4A6FA5] uppercase">AI Executive Summary</h2>
               <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">
-                Claude 3.5 Sonnet
+                Gemini 2.5 Flash
               </span>
             </div>
             {isLoading ? (

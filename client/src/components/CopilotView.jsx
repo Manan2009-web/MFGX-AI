@@ -74,7 +74,7 @@ export default function CopilotView() {
       const errorMessage = {
         id: `msg-${Date.now()}-error`,
         sender: 'bot',
-        text: "⚠️ **System Communication Failure**: I was unable to connect to the manufacturing AI endpoint. Please verify the backend server is running and `ANTHROPIC_API_KEY` is configured.",
+        text: "⚠️ **System Communication Failure**: I was unable to connect to the manufacturing AI endpoint. Please verify the backend server is running and `GEMINI_API_KEY` is configured.",
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -140,7 +140,7 @@ export default function CopilotView() {
             <h3 className="text-sm font-bold text-slate-900">AI Shop-Floor Assistant</h3>
             <span className="text-[10px] font-medium text-emerald-600 flex items-center gap-1">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-              Claude 3.5 Sonnet Connected
+              Gemini 2.5 Flash Connected
             </span>
           </div>
         </div>
