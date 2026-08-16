@@ -101,7 +101,7 @@ export default function DashboardView({ kpiData, isLoading, onRefresh }) {
             <Sparkles className="h-5 w-5 animate-pulse" />
           </div>
           <div className="space-y-1.5">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-sm font-bold tracking-wider text-[#4A6FA5] uppercase">AI Executive Summary</h2>
               <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">
                 Gemini 2.5 Flash
@@ -124,12 +124,12 @@ export default function DashboardView({ kpiData, isLoading, onRefresh }) {
       {/* 2. Filters & Refresh */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         {/* Horizontal filter pills */}
-        <div className="flex flex-wrap items-center gap-1.5 bg-slate-200/60 p-1 rounded-xl w-fit">
+        <div className="flex flex-wrap items-center gap-1.5 bg-slate-200/60 p-1 rounded-xl w-full sm:w-fit">
           {['All', 'Line 1', 'Line 2', 'Line 3', 'Line 4'].map((machine) => (
             <button
               key={machine}
               onClick={() => setSelectedMachine(machine)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer ${
+              className={`flex-1 sm:flex-initial text-center justify-center px-3 py-2.5 sm:py-1.5 text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer min-h-[44px] sm:min-h-0 flex items-center ${
                 selectedMachine === machine
                   ? 'bg-white text-slate-800 shadow-xs'
                   : 'text-slate-500 hover:text-slate-800 hover:bg-white/40'
@@ -144,7 +144,7 @@ export default function DashboardView({ kpiData, isLoading, onRefresh }) {
         <button
           onClick={onRefresh}
           disabled={isLoading}
-          className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 shadow-xs hover:bg-slate-50 active:scale-98 transition-all duration-150 cursor-pointer"
+          className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 sm:py-2 text-xs font-semibold text-slate-700 shadow-xs hover:bg-slate-50 active:scale-98 transition-all duration-150 cursor-pointer w-full sm:w-auto min-h-[44px] sm:min-h-0"
         >
           <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin text-slate-400' : 'text-slate-500'}`} />
           {isLoading ? 'Refreshing...' : 'Refresh Telemetry'}

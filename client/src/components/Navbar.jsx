@@ -18,11 +18,10 @@ export default function Navbar({ activeTab, setActiveTab }) {
             </div>
           </div>
 
-          {/* Navigation Tabs */}
           <nav className="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-xl">
             <button
               onClick={() => setActiveTab('dashboard')}
-              className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-250 cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-3 sm:py-2 text-sm font-semibold rounded-lg transition-all duration-250 cursor-pointer min-h-[44px] sm:min-h-[36px] ${
                 activeTab === 'dashboard'
                   ? 'bg-white text-slate-900 shadow-sm'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
@@ -33,7 +32,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
             </button>
             <button
               onClick={() => setActiveTab('copilot')}
-              className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-250 cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-3 sm:py-2 text-sm font-semibold rounded-lg transition-all duration-250 cursor-pointer min-h-[44px] sm:min-h-[36px] ${
                 activeTab === 'copilot'
                   ? 'bg-white text-slate-900 shadow-sm'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'

@@ -10,14 +10,25 @@ const SUGGESTIONS = [
 ];
 
 export default function CopilotView() {
-  const [messages, setMessages] = useState([
-    {
-      id: 'welcome',
-      sender: 'bot',
-      text: "Hello! I am your **MFGX AI Manufacturing Copilot**. I analyze factory telemetry from Line 1, Line 2, Line 3, and Line 4 to assist with shop-floor operations. \n\nAsk me questions about **OEE trends**, **downtime reasons**, **scrap rate spikes**, or **inventory levels**.",
-      timestamp: new Date()
+  const [messages, setMessages] = useState(() => {
+    const saved = localStorage.getItem('mfgx_chat_history');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return parsed.map(msg => ({ ...msg, timestamp: new Date(msg.timestamp) }));
+      } catch (e) {
+        console.error('Failed to parse chat history:', e);
+      }
     }
-  ]);
+    return [
+      {
+        id: 'welcome',
+        sender: 'bot',
+        text: "Hello! I am your **MFGX AI Manufacturing Copilot**. I analyze factory telemetry from Line 1, Line 2, Line 3, and Line 4 to assist with shop-floor operations. \n\nAsk me questions about **OEE trends**, **downtime reasons**, **scrap rate spikes**, or **inventory levels**.",
+        timestamp: new Date()
+      }
+    ];
+  });
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState(null);
@@ -28,6 +39,10 @@ export default function CopilotView() {
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    localStorage.setItem('mfgx_chat_history', JSON.stringify(messages));
+  }, [messages]);
 
   useEffect(() => {
     scrollToBottom();
@@ -128,7 +143,7 @@ export default function CopilotView() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-10rem)] md:h-[600px] rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+    <div className="flex flex-col h-[calc(100dvh-9rem)] md:h-[600px] rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs">
       
       {/* Chat Header */}
       <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/50 px-6 py-4">
@@ -182,12 +197,12 @@ export default function CopilotView() {
               </div>
 
               {/* Message Content Bubble */}
-              <div className={`rounded-2xl px-4 py-3 shadow-xs border ${
+              <div className={`rounded-2xl px-4 py-3 shadow-xs border break-words overflow-hidden ${
                 isBot 
                   ? 'bg-white border-slate-200 text-slate-800' 
                   : 'bg-[#EBF1FA] border-[#D1E0F2] text-slate-900'
               }`}>
-                <div className="prose prose-sm max-w-none">
+                <div className="prose prose-sm max-w-none break-words">
                   {formatText(msg.text)}
                 </div>
                 <span className="mt-1.5 block text-[9px] font-semibold text-slate-400 text-right leading-none">
@@ -224,7 +239,7 @@ export default function CopilotView() {
               key={idx}
               onClick={() => handleSend(suggestion)}
               disabled={isSending}
-              className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:border-slate-300 disabled:opacity-50 active:scale-95 transition-all duration-150 cursor-pointer min-h-[38px] flex items-center"
+              className="shrink-0 rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:border-slate-300 disabled:opacity-50 active:scale-95 transition-all duration-150 cursor-pointer min-h-[40px] flex items-center"
             >
               {suggestion}
             </button>
