@@ -20,17 +20,21 @@ const app = express();
 connectDB();
 
 // Middleware
-// Allow all origins temporarily with a comment to restrict it later.
-// To lock this down in production, define ALLOWED_ORIGINS (e.g. https://your-app.vercel.app) in your environment variables.
-const allowedOrigins = process.env.ALLOWED_ORIGINS 
-  ? process.env.ALLOWED_ORIGINS.split(',') 
-  : '*';
+const allowedOrigins = [
+  'https://mfgx-ai.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:3001'
+];
 
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 app.use(express.json());
 
